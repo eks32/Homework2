@@ -1,0 +1,124 @@
+---
+title: "Homework 2"
+author: "Eric Song"
+format: html
+editor: visual
+---
+
+## Task 1
+
+1.)
+
+```{r}
+pretreat<-c(120, 151, 125, 126, 115, 132, 132, 129, 134, 139, 127, 122, 127, 135, 133, 128, 147, 138, 140, 132)
+posttreat<-c( 127, 145, 135, 122, 115, 122, 123, 126, 126, 129, 132, 146, 120, 114, 121, 120, 128, 120, 133, 115)
+```
+
+2.)
+
+```{r}
+names(pretreat)<-c(paste("Subject",1:20, sep="_"))
+names(posttreat)<-c(paste("Subject",1:20, sep="_"))
+pretreat
+posttreat
+```
+
+3.)
+
+```{r}
+difftreat<-posttreat-pretreat
+difftreat
+```
+
+4.)
+
+```{r}
+mean(difftreat)
+```
+
+5.) It changes the value of difftreat to the index value for some reason.
+
+```{r}
+whichtreat<-which(difftreat >0)
+names(whichtreat)
+whichtreat
+```
+
+6.)
+
+```{r}
+positivediff <- difftreat[difftreat > 0]
+positivediff
+```
+
+7.)
+
+```{r}
+mean(positivediff)
+```
+
+## Task 2
+
+1.  Got rid of rownames for cleaner dataframe.
+
+```{r}
+Patient <- paste("Subject", 1:20, sep = " ")
+treatDF <- data.frame(Patient,pretreat,posttreat,difftreat)
+rownames(treatDF)<- NULL
+treatDF
+```
+
+2.)
+
+```{r}
+negativediff <- subset(treatDF, treatDF$difftreat< 0)
+negativediff
+```
+
+3.)
+
+```{r}
+treatDF$lowBP <- treatDF$posttreat <120
+treatDF
+```
+
+4.)
+
+```{r}
+knitr::kable(treatDF)
+```
+
+## Task 3
+
+1.)
+
+```{r}
+newPatient <- paste("Subject", 1:10, sep = " ")
+newpretreat <-c(138, 135, 147, 117, 152, 134, 114, 121, 131, 130)
+newposttreat <-c(105, 136, 123, 130, 134, 143, 135, 139, 120, 124)
+newdifftreat <- newposttreat-newpretreat
+newTreatDF <- data.frame(newPatient,newpretreat,newposttreat,newdifftreat)
+newTreatDF$newlowBP <- newTreatDF$newposttreat <120
+newTreatDF
+```
+
+2.)
+
+```{r}
+treatlist <- list(treatment=treatDF, placebo=newTreatDF)
+treatlist
+```
+
+3.)
+
+```{r}
+treatlist$treatment
+treatlist[1]
+treatlist[[1]]
+```
+
+4.)
+
+```{r}
+treatlist[[2]]$newpretreat
+```
